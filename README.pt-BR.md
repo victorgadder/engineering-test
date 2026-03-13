@@ -1,6 +1,6 @@
 # CodeLeap Network Frontend
 
-Versão em inglês: [README.md](engineering-test/README.md)
+Versão em inglês: [README.md](https://github.com/victorgadder/engineering-test/blob/main/README.md)
 
 Aplicação frontend desenvolvida em React para um fluxo de CRUD de postagens integrado ao backend de teste da CodeLeap em `https://dev.codeleap.co.uk/careers/`.
 
