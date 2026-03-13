@@ -726,7 +726,13 @@ function FeedScreen({ username, onLogout, knownUsers }) {
             src={codeleapNetworkLogo}
             alt="CodeLeap Network"
           />
-          <button className="logout-link" type="button" onClick={() => setIsSignOutModalOpen(true)}>sign out</button>
+          <div className="topbar-actions">
+            <div className="user-badge">
+              <span className="user-badge-label">Signed in as</span>
+              <strong className="user-badge-name">{username}</strong>
+            </div>
+            <button className="logout-link" type="button" onClick={() => setIsSignOutModalOpen(true)}>sign out</button>
+          </div>
         </header>
 
         <section className="search-area">
