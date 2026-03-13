@@ -1,160 +1,165 @@
 # CodeLeap Network Frontend
 
-Aplicação frontend desenvolvida em React para um fluxo de CRUD de postagens integrado ao backend de teste da CodeLeap em `https://dev.codeleap.co.uk/careers/`.
+English version: [README.pt-BR.md](engineering-test/README.pt-BR.md)
 
-O projeto foi construído com foco na experiência do usuário final: interface clara, visual refinado, responsividade, animações sutis e interações objetivas. Ao mesmo tempo, a implementação prioriza reutilização, simplicidade estrutural e uso de hooks.
+React frontend for a CRUD-focused social feed integrated with CodeLeap's test backend at `https://dev.codeleap.co.uk/careers/`.
 
-## Visão Geral
+The project was built with two priorities in mind:
 
-Esta aplicação entrega:
+- a polished end-user experience, with responsive layouts, subtle motion and clear interaction flows;
+- straightforward implementation, using hooks, reusable UI patterns and a pragmatic data layer.
 
-- autenticação frontend baseada em username, sem criação de usuário no backend;
-- criação, listagem, edição e exclusão de posts;
-- ordenação dos posts pelos mais recentes no topo;
-- busca por título, conteúdo ou username;
-- modais de confirmação e edição;
-- animação de transição no login com assets da marca CodeLeap;
-- likes e comentários com persistência local;
-- menções de usuários com autocomplete ao digitar `@`;
-- refinamentos visuais com hover, foco, feedback de estados e animações suaves.
+## Overview
 
-## Stack
+This application includes:
+
+- frontend-only username authentication;
+- post creation, listing, editing and deletion;
+- posts sorted by newest first;
+- search by title, content or username;
+- confirmation and editing modals;
+- branded login transition animation;
+- likes and comments with local persistence;
+- user mentions with `@` autocomplete;
+- refined hover, focus and transition states.
+
+## Tech Stack
 
 - `React 19`
 - `Vite`
 - `@tanstack/react-query`
 - `framer-motion`
-- CSS puro em arquivo único (`src/style.css`)
+- plain CSS in [`src/style.css`](C:/Users/opah/Documents/Projetos/engineering-test/src/style.css)
 
-## Backend e Integrações
+## Backends and Integrations
 
-### CRUD principal de posts
+### Main posts API
 
-Os posts usam a API remota:
+Posts are integrated with:
 
-- Base URL: `https://dev.codeleap.co.uk/careers/`
+- `https://dev.codeleap.co.uk/careers/`
 
-Operações implementadas:
+Implemented operations:
 
 - `GET /careers/`
 - `POST /careers/`
 - `PATCH /careers/{id}/`
 - `DELETE /careers/{id}/`
 
-Observações importantes:
+Important notes:
 
-- a barra final na URL foi mantida porque o backend Django pode apresentar comportamento inconsistente sem ela;
-- esse backend remoto pode ser reiniciado ou limpo periodicamente, portanto os posts não devem ser tratados como persistência garantida de longo prazo.
+- trailing slashes are intentionally preserved because the Django backend can behave inconsistently without them;
+- this remote API may be reset or cleared periodically, so its data should not be treated as durable long-term persistence.
 
-### Interações fictícias com API válida
+### Simulated social interactions
 
-Likes e comentários usam chamadas para:
+Likes and comments also trigger requests to:
 
 - `https://jsonplaceholder.typicode.com`
 
-Essas chamadas existem para simular tráfego de rede em funcionalidades que não fazem parte do contrato oficial da API da CodeLeap. A persistência funcional dessas interações acontece localmente no navegador.
+These requests are used to simulate valid external API traffic for features that are not part of CodeLeap's original contract. Functional persistence for those features happens locally in the browser.
 
-## Funcionalidades
+## Features
 
 ### 1. Login
 
-A tela inicial possui três caminhos:
+The login screen supports three paths:
 
-- continuar com o último usuário logado;
-- escolher um usuário já existente em um dropdown;
-- criar um novo usuário digitando um username inédito.
+- continue as the last logged-in user;
+- select an existing known user from a dropdown;
+- create a new unique username.
 
-Regras implementadas:
+Implemented rules:
 
-- o botão `ENTER` fica desabilitado quando o input está vazio;
-- usernames duplicados não podem ser criados pelo campo de novo usuário;
-- quando o nome já existe, uma mensagem de erro é exibida;
-- o login dispara uma animação de transição de 3 segundos antes de entrar no feed.
+- the `ENTER` button is disabled while the input is empty;
+- duplicate usernames cannot be created through the new-user field;
+- duplicate names show a validation message;
+- login triggers a 3-second branded transition before entering the feed.
 
-Persistência frontend:
+Frontend persistence:
 
-- último usuário: `localStorage`;
-- usuários conhecidos: `localStorage`.
+- last user: `localStorage`
+- known users: `localStorage`
 
-### 2. Feed principal
+### 2. Main feed
 
-O feed contém:
+The main feed includes:
 
-- header com logo, identificação do usuário logado e ação de `Sign out`;
-- campo de busca;
-- caixa de criação de postagem;
-- lista de posts retornados pela API;
-- controles condicionais de edição e exclusão apenas para o dono do post.
+- a header with logo, current signed-in user and `Sign out` action;
+- a search box;
+- a post composer;
+- a post list loaded from the API;
+- edit and delete controls only for posts owned by the logged-in user.
 
-Comportamentos importantes:
+Important behaviors:
 
-- os posts são ordenados por `created_datetime` de forma decrescente;
-- a listagem usa React Query;
-- há `refetch` periódico;
-- a lista também é invalidada após create, update e delete.
+- posts are sorted by `created_datetime` descending;
+- listing uses React Query;
+- there is periodic refetching;
+- the cache is invalidated after create, update and delete operations.
 
 ### 3. Likes
 
-Cada postagem possui um botão de like no header do card.
+Each post has a like button in the card header.
 
-Comportamento:
+Behavior:
 
-- o estado visual muda entre ícone branco e azul;
-- o contador é animado;
-- o like possui um pequeno efeito de `pop`;
-- os likes são persistidos localmente por post;
-- a ação também dispara uma chamada para API externa válida (`jsonplaceholder`) para simular integração de rede.
+- the visual state switches between white and blue icons;
+- the counter is animated;
+- likes have a small `pop` effect;
+- likes are persisted locally per post;
+- each action also triggers a request to `jsonplaceholder` to simulate network integration.
 
-### 4. Comentários
+### 4. Comments
 
-Cada post possui uma seção de comentários com:
+Each post includes a comments section with:
 
-- listagem de comentários;
-- formulário para novo comentário;
-- edição de comentário;
-- exclusão de comentário.
+- comment listing;
+- new comment form;
+- comment editing;
+- comment deletion.
 
-Regras de permissão:
+Permission rules:
 
-- o autor do comentário pode editar e deletar o próprio comentário;
-- o autor do post também pode deletar comentários feitos por outras pessoas naquele post;
-- quando o autor do post remove comentário de outro usuário, o comentário não desaparece e passa a exibir:
+- the comment author can edit and delete their own comment;
+- the post owner can also delete comments made by other users on that post;
+- when the post owner removes someone else's comment, the comment is replaced with:
   `Message deleted by the owner of the post.`
 
-Persistência:
+Persistence:
 
-- comentários ficam em `localStorage`;
-- create, update e delete também disparam chamadas para API externa válida.
+- comments are stored in `localStorage`;
+- create, update and delete also trigger requests to an external valid API.
 
-### 5. Menções com `@`
+### 5. Mentions with `@`
 
-O projeto implementa autocomplete de usuários quando `@` é digitado em:
+The app implements user autocomplete when `@` is typed in:
 
-- criação de post;
-- edição de post;
-- criação de comentário;
-- edição de comentário.
+- post creation;
+- post editing;
+- comment creation;
+- comment editing.
 
-Comportamento:
+Behavior:
 
-- a lista sugere usuários conhecidos da aplicação;
-- há suporte a mouse e teclado;
-- `ArrowUp`, `ArrowDown`, `Enter`, `Tab` e `Escape` são suportados.
+- suggestions are based on known users in the app;
+- both mouse and keyboard are supported;
+- `ArrowUp`, `ArrowDown`, `Enter`, `Tab` and `Escape` are handled.
 
-### 6. Animações e refinamento visual
+### 6. Motion and visual refinement
 
-O projeto inclui:
+The project includes:
 
-- transição entre login, loading e feed;
-- entrada escalonada dos posts com `fade + slide-up`;
-- modais com `scale/fade`;
-- hover refinado em cards, botões e ícones;
-- foco visual mais elegante nos inputs;
-- feedback visual quando `Create` e `Comment` ficam habilitados;
-- fundo com gradiente em camadas e textura leve;
-- brilho sutil no header.
+- animated transitions between login, loading and feed;
+- staggered post entrance with `fade + slide-up`;
+- `scale/fade` modals;
+- refined hover states for cards, buttons and icons;
+- more elegant input focus states;
+- enabled-state feedback for `Create` and `Comment`;
+- layered background gradient with subtle texture;
+- a soft highlight in the top header.
 
-## Estrutura de Pastas
+## Project Structure
 
 ```text
 src/
@@ -176,155 +181,155 @@ src/
   style.css
 ```
 
-## Arquivos Principais
+## Main Files
 
-### `src/main.jsx`
+### [`src/main.jsx`](C:/Users/opah/Documents/Projetos/engineering-test/src/main.jsx)
 
-Inicializa a aplicação React e configura o `QueryClientProvider`.
+Initializes React and sets up the `QueryClientProvider`.
 
-### `src/App.jsx`
+### [`src/App.jsx`](C:/Users/opah/Documents/Projetos/engineering-test/src/App.jsx)
 
-Concentra:
+Contains:
 
-- fluxo de login;
-- fluxo de feed;
-- modais;
-- componentes auxiliares locais;
-- regras de likes, comentários e menções;
-- transições de tela com `framer-motion`.
+- login flow;
+- feed flow;
+- modal handling;
+- local helper components;
+- like, comment and mention rules;
+- screen transitions powered by `framer-motion`.
 
-### `src/api/posts.js`
+### [`src/api/posts.js`](C:/Users/opah/Documents/Projetos/engineering-test/src/api/posts.js)
 
-Camada de integração com a API oficial da CodeLeap para CRUD de posts.
+Integration layer for CodeLeap's official CRUD API.
 
-### `src/api/social.js`
+### [`src/api/social.js`](C:/Users/opah/Documents/Projetos/engineering-test/src/api/social.js)
 
-Camada de integração para likes e comentários fictícios usando `jsonplaceholder`.
+Integration layer for simulated likes and comments using `jsonplaceholder`.
 
-### `src/components/CodeLeapLoadingTransition.jsx`
+### [`src/components/CodeLeapLoadingTransition.jsx`](C:/Users/opah/Documents/Projetos/engineering-test/src/components/CodeLeapLoadingTransition.jsx)
 
-Animação de transição de login usando assets da marca CodeLeap e `framer-motion`.
+Branded login transition animation built with `framer-motion`.
 
-### `src/style.css`
+### [`src/style.css`](C:/Users/opah/Documents/Projetos/engineering-test/src/style.css)
 
-Responsável por toda a linguagem visual do projeto:
+Defines the entire visual language of the project:
 
 - layout;
-- responsividade;
-- estados visuais;
-- animações;
-- tipografia;
-- ambientação.
+- responsiveness;
+- states;
+- motion;
+- typography;
+- visual atmosphere.
 
-## Como Rodar Localmente
+## Running Locally
 
-### Requisitos
+### Requirements
 
-- `Node.js` 18+ recomendado;
-- `npm`.
+- `Node.js` 18+ recommended
+- `npm`
 
-### Instalação
+### Install
 
 ```bash
 npm install
 ```
 
-### Desenvolvimento
+### Development
 
 ```bash
 npm run dev
 ```
 
-### Build de produção
+### Production build
 
 ```bash
 npm run build
 ```
 
-### Preview da build
+### Preview build
 
 ```bash
 npm run preview
 ```
 
-## Persistência Local
+## Local Persistence
 
-Como parte da experiência proposta, alguns estados são guardados no navegador:
+Some UI state is intentionally stored in the browser:
 
 - `codeleap_username`
 - `codeleap_users`
 - `codeleap_comments`
 - `codeleap_likes`
 
-Isso permite:
+This allows the app to:
 
-- lembrar o último usuário;
-- sugerir usuários existentes;
-- manter likes e comentários mesmo quando a API oficial não oferece suporte para isso.
+- remember the last user;
+- suggest known users;
+- keep likes and comments even when the official API does not support them.
 
-## Decisões Técnicas
+## Technical Decisions
 
-### Por que React Query?
+### Why React Query?
 
-React Query foi usado para:
+React Query is used to:
 
-- buscar posts da API principal;
-- invalidar cache após mutações;
-- reduzir código manual de loading e refetch;
-- deixar a camada assíncrona mais previsível.
+- fetch posts from the main API;
+- invalidate cache after mutations;
+- reduce manual loading and refetch logic;
+- make async state more predictable.
 
-### Por que hooks em vez de classes?
+### Why hooks instead of classes?
 
-O projeto segue a orientação solicitada:
+The project follows the requested direction:
 
-- componentes funcionais;
-- estado com hooks;
-- composição mais simples;
-- menor complexidade para evolução e manutenção.
+- functional components;
+- hook-based state management;
+- simpler composition;
+- lower maintenance complexity.
 
-### Por que `localStorage` para parte das features?
+### Why `localStorage` for part of the product?
 
-Porque:
+Because:
 
-- login por username não depende de backend real de usuários;
-- likes e comentários não fazem parte da API oficial do teste;
-- a API remota de posts pode ser resetada com o tempo.
+- username login does not depend on a real users backend;
+- likes and comments are not part of the official test API;
+- the remote posts API can be reset over time.
 
-## Responsividade
+## Responsiveness
 
-O layout foi pensado para desktop e mobile:
+The layout was designed for desktop and mobile:
 
-- larguras fluidas com `min(..., 100%)`;
-- ajustes por breakpoint;
-- componentes do header adaptados para telas menores;
-- dropdown e ações do login reorganizados para mobile;
-- modal e cards com comportamento consistente em larguras reduzidas.
+- fluid widths with `min(..., 100%)`;
+- breakpoint-based adjustments;
+- adaptive header behavior on small screens;
+- login dropdown and actions reorganized for mobile;
+- modal and card layout kept usable on smaller widths.
 
-## Acessibilidade e UX
+## Accessibility and UX
 
-Alguns cuidados aplicados:
+Applied considerations:
 
-- botões desabilitados quando a ação não é válida;
-- feedback visual em hover e foco;
-- labels claras nos campos;
-- modais com estrutura apropriada para dialog;
-- texto e hierarquia visual voltados para leitura rápida.
+- disabled buttons when an action is invalid;
+- visual hover and focus feedback;
+- clear labels on form fields;
+- proper modal dialog structure;
+- readable hierarchy and fast-scanning content flow.
 
-## Limitações Conhecidas
+## Known Limitations
 
-- a API da CodeLeap pode retornar lista vazia em determinados momentos, mesmo após uso anterior;
-- likes e comentários não são persistidos em backend próprio, apenas localmente;
-- a autenticação é puramente frontend, sem sessão real;
-- parte do app está centralizada em `App.jsx`, o que é funcional para o escopo atual, mas pode ser separado em módulos menores caso o projeto cresça.
+- the CodeLeap API may return an empty list at certain times, even after previous use;
+- likes and comments are not persisted in a dedicated backend, only locally;
+- authentication is purely frontend-based, with no real session management;
+- a large portion of the app currently lives inside `App.jsx`, which is acceptable for the current scope but could be modularized further as the project grows.
 
-## Melhorias Futuras Possíveis
+## Possible Future Improvements
 
-- extrair componentes do feed para arquivos separados;
-- mover configurações para variáveis de ambiente;
-- adicionar testes de interface e testes de integração;
-- implementar backend próprio para likes, comentários e usuários;
-- otimizar assets maiores da marca para reduzir o peso da build.
+- split feed-related UI into smaller files;
+- move configuration into environment variables;
+- add UI and integration tests;
+- implement a dedicated backend for likes, comments and users;
+- optimize larger brand assets to reduce bundle weight.
 
-## Autor
+## Author
 
-Projeto desenvolvido por Victor Gadder no contexto de um desafio de engenharia frontend, com foco em usabilidade, clareza visual e execução objetiva.
+Project developed by Victor Gadder in the context of a frontend engineering challenge, with emphasis on usability, visual clarity and practical execution.
