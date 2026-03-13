@@ -6,6 +6,26 @@ O objetivo aqui não é repetir apenas a mensagem curta do Git, mas traduzir cad
 
 ## Histórico
 
+### `07972b1` - Emoticon and favicon implementations
+
+Ampliação da experiência de escrita com suporte visual a emojis e personalização da identidade da aplicação no navegador.
+
+Principais entregas:
+
+- habilitação de emoticons nos campos e na renderização de posts e comentários;
+- adição de um picker de emojis integrado aos campos de escrita;
+- inclusão de busca simples no picker para localizar emojis por palavras-chave;
+- ampliação da quantidade de emojis disponíveis para composição de mensagens;
+- definição do `codeleap-icon` como favicon da aplicação;
+- refinamentos visuais no componente de entrada de texto para acomodar o novo fluxo de inserção de emojis.
+
+Arquivos alterados/criados:
+
+- [src/App.jsx](C:/Users/opah/Documents/Projetos/engineering-test/src/App.jsx)
+- [src/style.css](C:/Users/opah/Documents/Projetos/engineering-test/src/style.css)
+- [index.html](C:/Users/opah/Documents/Projetos/engineering-test/index.html)
+- [public/codeleap-icon.png](C:/Users/opah/Documents/Projetos/engineering-test/public/codeleap-icon.png)
+
 ### `9147448` - CHANGELOG file implementation
 
 Adição do changelog do projeto.

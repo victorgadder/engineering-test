@@ -677,11 +677,11 @@ function PostCard({
           </button>
           {isOwnPost && (
             <>
-              <button className="icon-button" onClick={() => onDeletePost(post)} type="button" aria-label="Delete post">
-                <img src={deleteIcon} alt="" aria-hidden="true" />
-              </button>
               <button className="icon-button" onClick={() => onEditPost(post)} type="button" aria-label="Edit post">
                 <img src={editIcon} alt="" aria-hidden="true" />
+              </button>
+              <button className="icon-button" onClick={() => onDeletePost(post)} type="button" aria-label="Delete post">
+                <img src={deleteIcon} alt="" aria-hidden="true" />
               </button>
             </>
           )}
@@ -740,10 +740,28 @@ function PostCard({
               {!comment.deletedByOwner && !isEditing && (canEditComment || canDeleteComment) && (
                 <div className="comment-actions">
                   {canEditComment && (
-                    <Button type="button" className="outline" onClick={() => onStartEditComment(post.id, comment)}>Edit</Button>
+                    <button
+                      className="icon-button comment-icon-button"
+                      type="button"
+                      aria-label="Edit comment"
+                      title="Edit comment"
+                      onClick={() => onStartEditComment(post.id, comment)}
+                    >
+                      <img src={editIcon} alt="" aria-hidden="true" />
+                    </button>
                   )}
                   {canDeleteComment && (
-                    <Button type="button" className="danger" onClick={() => onRequestDeleteComment(post, comment, isCommentAuthor)}>Delete</Button>
+                    <button
+                      className="icon-button comment-icon-button"
+                      type="button"
+                      aria-label="Delete comment"
+                      title="Delete comment"
+                      onClick={() =>
+                        onRequestDeleteComment(post, comment, isCommentAuthor)
+                      }
+                    >
+                      <img src={deleteIcon} alt="" aria-hidden="true" />
+                    </button>
                   )}
                 </div>
               )}
