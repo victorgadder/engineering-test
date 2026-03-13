@@ -74,6 +74,213 @@ const postCardTransition = {
   },
 };
 
+const EMOJI_CATEGORIES = [
+  {
+    id: "recent",
+    label: "Popular",
+    icon: "⭐",
+    emojis: [
+      { symbol: "😀", keywords: ["happy", "smile", "joy"] },
+      { symbol: "😂", keywords: ["laugh", "funny", "crying"] },
+      { symbol: "😍", keywords: ["love", "heart eyes", "amazing"] },
+      { symbol: "🥳", keywords: ["party", "celebrate", "birthday"] },
+      { symbol: "😎", keywords: ["cool", "confident", "awesome"] },
+      { symbol: "🤔", keywords: ["thinking", "hmm", "question"] },
+      { symbol: "👏", keywords: ["clap", "congrats", "applause"] },
+      { symbol: "🙌", keywords: ["celebration", "praise", "yay"] },
+      { symbol: "🔥", keywords: ["fire", "hot", "trend"] },
+      { symbol: "💡", keywords: ["idea", "insight", "smart"] },
+      { symbol: "🚀", keywords: ["launch", "ship", "fast"] },
+      { symbol: "🎉", keywords: ["party", "celebrate", "success"] },
+      { symbol: "❤️", keywords: ["love", "heart", "care"] },
+      { symbol: "👍", keywords: ["ok", "approve", "like"] },
+      { symbol: "🙏", keywords: ["thanks", "please", "gratitude"] },
+      { symbol: "✅", keywords: ["done", "check", "approved"] },
+    ],
+  },
+  {
+    id: "faces",
+    label: "Faces",
+    icon: "🙂",
+    emojis: [
+      { symbol: "😀", keywords: ["happy", "smile", "joy"] },
+      { symbol: "😁", keywords: ["grin", "smile", "teeth"] },
+      { symbol: "😂", keywords: ["laugh", "funny", "tears"] },
+      { symbol: "🤣", keywords: ["rofl", "laugh", "floor"] },
+      { symbol: "😊", keywords: ["blush", "happy", "kind"] },
+      { symbol: "😇", keywords: ["angel", "innocent", "halo"] },
+      { symbol: "🙂", keywords: ["smile", "calm", "friendly"] },
+      { symbol: "😉", keywords: ["wink", "playful", "flirt"] },
+      { symbol: "😍", keywords: ["love", "heart eyes", "wow"] },
+      { symbol: "😘", keywords: ["kiss", "love", "affection"] },
+      { symbol: "😋", keywords: ["yum", "tasty", "tongue"] },
+      { symbol: "😎", keywords: ["cool", "sunglasses", "style"] },
+      { symbol: "🥳", keywords: ["party", "celebration", "confetti"] },
+      { symbol: "🤔", keywords: ["thinking", "wonder", "hmm"] },
+      { symbol: "🫠", keywords: ["melting", "awkward", "heat"] },
+      { symbol: "😴", keywords: ["sleep", "tired", "nap"] },
+      { symbol: "😅", keywords: ["relief", "nervous", "sweat"] },
+      { symbol: "🥲", keywords: ["happy cry", "emotional", "tear"] },
+      { symbol: "😢", keywords: ["sad", "cry", "tears"] },
+      { symbol: "😭", keywords: ["sob", "crying", "very sad"] },
+      { symbol: "😤", keywords: ["frustrated", "steam", "annoyed"] },
+      { symbol: "😡", keywords: ["angry", "mad", "rage"] },
+      { symbol: "🤯", keywords: ["mind blown", "shocked", "wow"] },
+      { symbol: "😱", keywords: ["scream", "fear", "shock"] },
+    ],
+  },
+  {
+    id: "gestures",
+    label: "Gestures",
+    icon: "🙌",
+    emojis: [
+      { symbol: "👍", keywords: ["ok", "yes", "approve"] },
+      { symbol: "👎", keywords: ["no", "disapprove", "down"] },
+      { symbol: "👏", keywords: ["clap", "applause", "congrats"] },
+      { symbol: "🙌", keywords: ["hooray", "celebrate", "raise hands"] },
+      { symbol: "🙏", keywords: ["thanks", "pray", "please"] },
+      { symbol: "🤝", keywords: ["deal", "agreement", "partnership"] },
+      { symbol: "👋", keywords: ["hello", "bye", "wave"] },
+      { symbol: "🤚", keywords: ["stop", "hand", "raise"] },
+      { symbol: "✌️", keywords: ["peace", "victory", "two"] },
+      { symbol: "🤞", keywords: ["luck", "hope", "fingers crossed"] },
+      { symbol: "👌", keywords: ["perfect", "ok", "fine"] },
+      { symbol: "🤌", keywords: ["italian", "precision", "gesture"] },
+      { symbol: "💪", keywords: ["strong", "muscle", "power"] },
+      { symbol: "🫶", keywords: ["love", "heart hands", "care"] },
+      { symbol: "👀", keywords: ["look", "watch", "eyes"] },
+      { symbol: "🫡", keywords: ["salute", "respect", "acknowledge"] },
+    ],
+  },
+  {
+    id: "hearts",
+    label: "Hearts",
+    icon: "❤️",
+    emojis: [
+      { symbol: "❤️", keywords: ["love", "heart", "red"] },
+      { symbol: "🩷", keywords: ["pink heart", "love", "cute"] },
+      { symbol: "🧡", keywords: ["orange heart", "care", "warm"] },
+      { symbol: "💛", keywords: ["yellow heart", "friendship", "joy"] },
+      { symbol: "💚", keywords: ["green heart", "nature", "support"] },
+      { symbol: "💙", keywords: ["blue heart", "trust", "calm"] },
+      { symbol: "💜", keywords: ["purple heart", "care", "vibe"] },
+      { symbol: "🖤", keywords: ["black heart", "dark", "style"] },
+      { symbol: "🤍", keywords: ["white heart", "pure", "clean"] },
+      { symbol: "🤎", keywords: ["brown heart", "earth", "warm"] },
+      { symbol: "💔", keywords: ["broken heart", "sad", "hurt"] },
+      { symbol: "❣️", keywords: ["heart", "exclamation", "affection"] },
+      { symbol: "💕", keywords: ["two hearts", "love", "cute"] },
+      { symbol: "💖", keywords: ["sparkle heart", "love", "shine"] },
+      { symbol: "💘", keywords: ["cupid", "romance", "arrow"] },
+      { symbol: "💝", keywords: ["gift heart", "present", "love"] },
+    ],
+  },
+  {
+    id: "objects",
+    label: "Objects",
+    icon: "💡",
+    emojis: [
+      { symbol: "💡", keywords: ["idea", "light bulb", "insight"] },
+      { symbol: "💻", keywords: ["laptop", "coding", "computer"] },
+      { symbol: "📱", keywords: ["phone", "mobile", "device"] },
+      { symbol: "⌚", keywords: ["watch", "time", "clock"] },
+      { symbol: "🎧", keywords: ["music", "headphones", "audio"] },
+      { symbol: "📚", keywords: ["books", "study", "reading"] },
+      { symbol: "📝", keywords: ["note", "write", "memo"] },
+      { symbol: "📌", keywords: ["pin", "attach", "important"] },
+      { symbol: "📎", keywords: ["paperclip", "attach", "file"] },
+      { symbol: "🔒", keywords: ["lock", "secure", "private"] },
+      { symbol: "🔓", keywords: ["unlock", "open", "access"] },
+      { symbol: "🔔", keywords: ["bell", "notification", "alert"] },
+      { symbol: "📣", keywords: ["megaphone", "announce", "news"] },
+      { symbol: "✅", keywords: ["done", "approved", "check"] },
+      { symbol: "❌", keywords: ["wrong", "close", "error"] },
+      { symbol: "⚠️", keywords: ["warning", "alert", "attention"] },
+      { symbol: "⭐", keywords: ["star", "favorite", "highlight"] },
+      { symbol: "🏆", keywords: ["trophy", "win", "award"] },
+      { symbol: "🎯", keywords: ["target", "goal", "focus"] },
+      { symbol: "🧠", keywords: ["brain", "smart", "thinking"] },
+    ],
+  },
+  {
+    id: "nature",
+    label: "Nature",
+    icon: "🌿",
+    emojis: [
+      { symbol: "🌞", keywords: ["sun", "bright", "day"] },
+      { symbol: "🌙", keywords: ["moon", "night", "calm"] },
+      { symbol: "⭐", keywords: ["star", "sky", "night"] },
+      { symbol: "☁️", keywords: ["cloud", "weather", "sky"] },
+      { symbol: "🌈", keywords: ["rainbow", "color", "hope"] },
+      { symbol: "🔥", keywords: ["fire", "burn", "hot"] },
+      { symbol: "💧", keywords: ["water", "drop", "liquid"] },
+      { symbol: "🌱", keywords: ["sprout", "growth", "plant"] },
+      { symbol: "🌿", keywords: ["herb", "green", "leaf"] },
+      { symbol: "🌴", keywords: ["palm", "tree", "vacation"] },
+      { symbol: "🌵", keywords: ["cactus", "desert", "plant"] },
+      { symbol: "🌸", keywords: ["flower", "blossom", "pink"] },
+      { symbol: "🌹", keywords: ["rose", "flower", "romance"] },
+      { symbol: "🌻", keywords: ["sunflower", "flower", "summer"] },
+      { symbol: "🍀", keywords: ["luck", "clover", "nature"] },
+      { symbol: "🪴", keywords: ["plant", "pot", "home"] },
+    ],
+  },
+  {
+    id: "food",
+    label: "Food",
+    icon: "🍕",
+    emojis: [
+      { symbol: "☕", keywords: ["coffee", "drink", "morning"] },
+      { symbol: "🍵", keywords: ["tea", "drink", "green tea"] },
+      { symbol: "🧃", keywords: ["juice", "drink", "box"] },
+      { symbol: "🍎", keywords: ["apple", "fruit", "healthy"] },
+      { symbol: "🍌", keywords: ["banana", "fruit", "yellow"] },
+      { symbol: "🍇", keywords: ["grapes", "fruit", "purple"] },
+      { symbol: "🍓", keywords: ["strawberry", "fruit", "red"] },
+      { symbol: "🍔", keywords: ["burger", "fast food", "meal"] },
+      { symbol: "🍕", keywords: ["pizza", "slice", "food"] },
+      { symbol: "🌮", keywords: ["taco", "mexican", "food"] },
+      { symbol: "🍣", keywords: ["sushi", "japanese", "food"] },
+      { symbol: "🍜", keywords: ["ramen", "noodles", "soup"] },
+      { symbol: "🍪", keywords: ["cookie", "dessert", "sweet"] },
+      { symbol: "🍩", keywords: ["donut", "dessert", "sweet"] },
+      { symbol: "🍫", keywords: ["chocolate", "sweet", "dessert"] },
+      { symbol: "🍿", keywords: ["popcorn", "movie", "snack"] },
+    ],
+  },
+  {
+    id: "travel",
+    label: "Travel",
+    icon: "✈️",
+    emojis: [
+      { symbol: "🚗", keywords: ["car", "drive", "road"] },
+      { symbol: "🚕", keywords: ["taxi", "cab", "ride"] },
+      { symbol: "🚌", keywords: ["bus", "transport", "ride"] },
+      { symbol: "🚆", keywords: ["train", "rail", "travel"] },
+      { symbol: "🚲", keywords: ["bike", "bicycle", "ride"] },
+      { symbol: "✈️", keywords: ["plane", "flight", "travel"] },
+      { symbol: "🚀", keywords: ["rocket", "launch", "space"] },
+      { symbol: "⛽", keywords: ["fuel", "gas", "station"] },
+      { symbol: "🗺️", keywords: ["map", "travel", "location"] },
+      { symbol: "🧭", keywords: ["compass", "direction", "navigation"] },
+      { symbol: "🏖️", keywords: ["beach", "vacation", "summer"] },
+      { symbol: "🏔️", keywords: ["mountain", "nature", "trip"] },
+      { symbol: "🏙️", keywords: ["city", "buildings", "urban"] },
+      { symbol: "🏠", keywords: ["home", "house", "place"] },
+      { symbol: "🏨", keywords: ["hotel", "travel", "stay"] },
+      { symbol: "🎡", keywords: ["ferris wheel", "fun", "park"] },
+    ],
+  },
+];
+
+const EMOJI_OPTIONS = Array.from(
+  new Map(
+    EMOJI_CATEGORIES.flatMap((category) =>
+      category.emojis.map((emoji) => [emoji.symbol, emoji]),
+    ),
+  ).values(),
+);
+
 function getStoredUsers() {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(USERS_STORAGE_KEY) ?? "[]");
@@ -127,6 +334,18 @@ function getMentionContext(text, cursor) {
 
 function insertMention(text, range, user) {
   return text.slice(0, range.start) + `@${user} ` + text.slice(range.end);
+}
+
+function insertEmoji(text, cursor, emoji) {
+  const safeCursor = Number.isFinite(cursor) ? cursor : text.length;
+  return text.slice(0, safeCursor) + emoji + text.slice(safeCursor);
+}
+
+function matchesEmojiSearch(emoji, searchTerm) {
+  if (!searchTerm) return true;
+  const normalizedTerm = searchTerm.trim().toLowerCase();
+  if (!normalizedTerm) return true;
+  return emoji.keywords.some((keyword) => keyword.toLowerCase().includes(normalizedTerm));
 }
 
 function Button({ children, className = "", ...props }) {
@@ -197,10 +416,14 @@ function AnimatedCounter({ value, className = "" }) {
 
 function MentionTextarea({ label, value, onChange, users, placeholder, rows = 4, className = "" }) {
   const textareaRef = useRef(null);
+  const pickerRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const [mentionRange, setMentionRange] = useState(null);
   const [isMentionOpen, setIsMentionOpen] = useState(false);
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [emojiSearch, setEmojiSearch] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const [cursorPosition, setCursorPosition] = useState(value.length);
 
   const filteredUsers = useMemo(() => {
     if (!mentionRange) return [];
@@ -209,8 +432,14 @@ function MentionTextarea({ label, value, onChange, users, placeholder, rows = 4,
       .slice(0, 6);
   }, [users, mentionRange]);
 
+  const filteredEmojis = useMemo(
+    () => EMOJI_OPTIONS.filter((emoji) => matchesEmojiSearch(emoji, emojiSearch)),
+    [emojiSearch],
+  );
+
   function updateMentionState(nextText, cursor) {
     const context = getMentionContext(nextText, cursor);
+    setCursorPosition(Number.isFinite(cursor) ? cursor : nextText.length);
     setMentionRange(context);
     setIsMentionOpen(Boolean(context));
     setHighlightedIndex(0);
@@ -230,10 +459,55 @@ function MentionTextarea({ label, value, onChange, users, placeholder, rows = 4,
     });
   }
 
+  function applyEmoji(emoji) {
+    const nextValue = insertEmoji(value, cursorPosition, emoji);
+    onChange(nextValue);
+    setIsEmojiOpen(false);
+    requestAnimationFrame(() => {
+      if (!textareaRef.current) return;
+      const nextCursor = cursorPosition + emoji.length;
+      textareaRef.current.focus();
+      textareaRef.current.setSelectionRange(nextCursor, nextCursor);
+      updateMentionState(nextValue, nextCursor);
+    });
+  }
+
+  useEffect(() => {
+    function handlePointerDown(event) {
+      if (!pickerRef.current?.contains(event.target)) {
+        setIsEmojiOpen(false);
+      }
+    }
+
+    if (!isEmojiOpen) return undefined;
+    window.addEventListener("pointerdown", handlePointerDown);
+    return () => window.removeEventListener("pointerdown", handlePointerDown);
+  }, [isEmojiOpen]);
+
   return (
     <label className={`field ${className}`.trim()}>
-      {label && <span>{label}</span>}
-      <div className="mention-wrapper">
+      <div className="field-header">
+        {label && <span>{label}</span>}
+        <div className="field-header-actions">
+          <button
+            type="button"
+            className={`emoji-trigger ${isEmojiOpen ? "active" : ""}`.trim()}
+            aria-label="Open emoji picker"
+            aria-expanded={isEmojiOpen}
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={() => {
+              setIsEmojiOpen((prev) => !prev);
+              if (isEmojiOpen) {
+                setEmojiSearch("");
+              }
+              requestAnimationFrame(() => textareaRef.current?.focus());
+            }}
+          >
+            😊
+          </button>
+        </div>
+      </div>
+      <div className="mention-wrapper" ref={pickerRef}>
         <textarea
           ref={textareaRef}
           value={value}
@@ -258,11 +532,47 @@ function MentionTextarea({ label, value, onChange, users, placeholder, rows = 4,
             }
           }}
           onClick={(event) => updateMentionState(event.target.value, event.target.selectionStart)}
+          onSelect={(event) => updateMentionState(event.target.value, event.target.selectionStart)}
           onBlur={() => window.setTimeout(() => setIsMentionOpen(false), 120)}
           placeholder={placeholder}
           rows={rows}
         />
         <AnimatePresence>
+          {isEmojiOpen && (
+            <motion.div
+              className="emoji-picker"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
+              exit={prefersReducedMotion ? {} : { opacity: 0, y: 6, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <input
+                type="text"
+                className="emoji-search"
+                placeholder="Search emojis"
+                value={emojiSearch}
+                onChange={(event) => setEmojiSearch(event.target.value)}
+              />
+              <div className="emoji-grid">
+                {filteredEmojis.length > 0 ? (
+                  filteredEmojis.map((emoji) => (
+                    <button
+                      key={emoji.symbol}
+                      type="button"
+                      className="emoji-option"
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => applyEmoji(emoji.symbol)}
+                      title={emoji.keywords.join(", ")}
+                    >
+                      {emoji.symbol}
+                    </button>
+                  ))
+                ) : (
+                  <p className="emoji-empty">No emojis found.</p>
+                )}
+              </div>
+            </motion.div>
+          )}
           {isMentionOpen && filteredUsers.length > 0 && (
             <motion.ul
               className="mention-list"

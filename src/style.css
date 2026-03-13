@@ -13,7 +13,8 @@
   --shadow-medium: 0 14px 34px rgba(32, 44, 86, 0.1);
   --shadow-soft: 0 8px 20px rgba(32, 44, 86, 0.08);
   --focus-ring: 0 0 0 4px rgba(118, 149, 236, 0.16);
-  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji",
+    "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: var(--text);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -285,12 +286,32 @@ p {
   font-size: 1rem;
 }
 
+.field-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.field-header .field-header-actions {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.field-header span {
+  margin-bottom: 0;
+}
+
 .field input,
 .field textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   font: inherit;
+  font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji",
+    "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 9px 12px;
   color: var(--text);
   transition: border-color 180ms ease, box-shadow 180ms ease,
@@ -546,8 +567,11 @@ p {
 .post-content {
   font-size: 1.1rem;
   line-height: 1.5;
+  font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji",
+    "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 16px 22px;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .comments-section {
@@ -607,7 +631,10 @@ p {
   margin: 6px 0 0;
   font-size: 0.94rem;
   line-height: 1.45;
+  font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji",
+    "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial, sans-serif;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .comment-deleted {
@@ -635,6 +662,92 @@ p {
 
 .mention-wrapper {
   position: relative;
+}
+
+.emoji-trigger {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(154, 170, 223, 0.48);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f8faff 0%, #edf2ff 100%);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.emoji-trigger.active,
+.emoji-trigger:hover {
+  border-color: #8da4ee;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.emoji-picker {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 6;
+  display: grid;
+  gap: 10px;
+  width: min(100%, 360px);
+  padding: 10px;
+  border: 1px solid #d3d9ef;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 12px 28px rgba(20, 20, 20, 0.14);
+  backdrop-filter: blur(10px);
+  transform-origin: top right;
+}
+
+.emoji-search {
+  width: 100%;
+  border: 1px solid rgba(154, 170, 223, 0.5);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+  background: #ffffff;
+}
+
+.emoji-search:focus {
+  outline: none;
+  border-color: #7695ec;
+  box-shadow: var(--focus-ring);
+}
+
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  max-height: 244px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.emoji-option {
+  min-height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.emoji-option:hover {
+  background: #edf2ff;
+  transform: scale(1.06);
+}
+
+.emoji-empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 16px 8px;
 }
 
 .mention-list {
@@ -870,5 +983,13 @@ p {
   .existing-user-row {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .emoji-picker {
+    width: 100%;
+  }
+
+  .emoji-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

@@ -6,6 +6,20 @@ O objetivo aqui não é repetir apenas a mensagem curta do Git, mas traduzir cad
 
 ## Histórico
 
+### `9147448` - CHANGELOG file implementation
+
+Adição do changelog do projeto.
+
+Principais inclusões:
+
+- criação do arquivo de histórico de mudanças do repositório;
+- documentação dos commits já existentes com contexto mais útil do que a mensagem curta do Git;
+- organização cronológica da evolução do projeto, incluindo produto, interface e documentação.
+
+Arquivo criado/alterado:
+
+- [CHANGELOG.md](C:/Users/opah/Documents/Projetos/engineering-test/CHANGELOG.md)
+
 ### `87075a7` - Master upload
 
 Commit inicial do projeto.
