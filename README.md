@@ -1,6 +1,6 @@
 # CodeLeap Network Frontend
 
-English version: [README.pt-BR.md](https://github.com/victorgadder/engineering-test/blob/main/README.pt-BR.md)
+Brazilian Portuguese version: [README.pt-BR.md](https://github.com/victorgadder/engineering-test/blob/main/README.pt-BR.md)
 
 React frontend for a CRUD-focused social feed integrated with CodeLeap's test backend at `https://dev.codeleap.co.uk/careers/`.
 
